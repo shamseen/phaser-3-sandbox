@@ -23,13 +23,19 @@ const config = {
         preload: preload,
         create: create,
         update: update
-    }
-};
+    },
 
-const game = new Phaser.Game(config);
+    // phaser won't call window.focus() before dom is ready
+    autofocus: false
+};
 
 function preload() { }
 
 function create() { }
 
 function update() { }
+
+// starting server after creating game instance
+const game = new Phaser.Game(config);
+window.gameLoaded();
+window.focus();

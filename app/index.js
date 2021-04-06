@@ -9,6 +9,7 @@ const { JSDOM } = jsdom;
 /* --- Express server setup ---- */
 // import express module
 const express = require('express');
+const { dirname } = require('path');
 
 // express instance
 const app = express();
@@ -24,16 +25,14 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
-// assign app to port 8081
-server.listen(8081, function () {
-    console.log(`Listening on ${server.address().port}`);
-});
 
 
 /* ---- Hookup server to DOM ---- */
 const setupAuthoritativePhaser = () => {
+
     // JSDOM API loads index.html to render on
-    JSDOM.fromFile(path.join(__dirname, 'server/index.html'), {
+        // returns promise
+        JSDOM.fromFile(path.join(__dirname, 'server/index.html'), {
 
         /* --- options to run file --- */
         // To run the scripts in the html file
@@ -45,7 +44,20 @@ const setupAuthoritativePhaser = () => {
         //telling JSDOM to behave like a normal visual browser
         // So requestAnimatinFrame events fire
         pretendToBeVisual: true
-    });
-}
+
+            // waits for phaser lib to load before 
+            // making game obj & starting server
+        }).then((dom) => {
+            // assign app to port 8081
+            console.log(dom);
+            dom.window.gameLoaded = () => {
+                server.listen(8081, () => {
+                    console.log(`Listening on ${server.address().port}`);
+                });
+            }
+        }).catch(err => {
+            console.log(error.message);
+        });
+    }
 
 setupAuthoritativePhaser();
