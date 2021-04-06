@@ -41,8 +41,7 @@ const game = new Phaser.Game(config);
 try {
     console.log("game.js ===================");
     const w = window.gameLoaded();
-    w.focus();
-    console.log(w);
+    console.log(w)
 }
 catch (err) {
     console.log(err);

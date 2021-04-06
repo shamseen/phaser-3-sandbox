@@ -49,13 +49,11 @@ const setupAuthoritativePhaser = () => {
     // making game obj & starting server
     }).then((dom) => {
         // assign app to port 8081
-        console.log(dom);
         dom.window.gameLoaded = () => {
             console.log('index.js ================')
             server.listen(8081, () => {
                 console.log(`Listening on ${server.address().port}`);
             });
-            console.log(dom.window);
             return dom.window;
         }
     }).catch(err => {
