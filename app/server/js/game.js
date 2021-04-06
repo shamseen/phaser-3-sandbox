@@ -1,12 +1,21 @@
 /* ---- Setup ---- */
 const config = {
-    /* what it will use to render
-       if WebGL fails, uses Canvas */
-    type: Phaser.AUTO,
+    /* no renderer at all => serverside looks for DOM */
+    type: Phaser.HEADLESS,
 
-    // size of canvas element
+    // size of "cavas" element
     width: 800,
     height: 600,
+
+    // game physics
+    // Object factory: this.physics.add(foo)
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: false,
+            gravity: { y: 0 }
+        }
+    },
 
     // game is a sequence of scenes
     // instances need crud functionality for render

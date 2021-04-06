@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/shamseen/phaser-3-sandbox#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "canvas": "^2.7.0",
+    "express": "^4.17.1",
+    "jsdom": "^16.5.2"
   }
 }

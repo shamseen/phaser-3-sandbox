@@ -1,3 +1,12 @@
+/* ----- run with node app/index.js ----- */
+
+
+/* --- Import API to use dom --- */
+const path = require('path');
+const jsdom = require('jsdom');
+const { JSDOM } = jsdom;
+
+/* --- Express server setup ---- */
 // import express module
 const express = require('express');
 
@@ -20,4 +29,23 @@ server.listen(8081, function () {
     console.log(`Listening on ${server.address().port}`);
 });
 
-/* ----- run with node app/index.js ----- */
+
+/* ---- Hookup server to DOM ---- */
+const setupAuthoritativePhaser = () => {
+    // JSDOM API loads index.html to render on
+    JSDOM.fromFile(path.join(__dirname, 'server/index.html'), {
+
+        /* --- options to run file --- */
+        // To run the scripts in the html file
+        runScripts: "dangerously",
+
+        // Also load supported external resources
+        resources: "usable",
+
+        //telling JSDOM to behave like a normal visual browser
+        // So requestAnimatinFrame events fire
+        pretendToBeVisual: true
+    });
+}
+
+setupAuthoritativePhaser();
