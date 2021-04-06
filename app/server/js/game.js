@@ -37,5 +37,13 @@ function update() { }
 
 // starting server after creating game instance
 const game = new Phaser.Game(config);
-window.gameLoaded();
-window.focus();
+
+try {
+    console.log("game.js ===================");
+    const w = window.gameLoaded();
+    w.focus();
+    console.log(w);
+}
+catch (err) {
+    console.log(err);
+}

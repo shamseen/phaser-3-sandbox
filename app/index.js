@@ -31,33 +31,36 @@ app.get('/', function (req, res) {
 const setupAuthoritativePhaser = () => {
 
     // JSDOM API loads index.html to render on
-        // returns promise
-        JSDOM.fromFile(path.join(__dirname, 'server/index.html'), {
+    // returns promise
+    JSDOM.fromFile(path.join(__dirname, 'server/index.html'), {
 
-        /* --- options to run file --- */
-        // To run the scripts in the html file
-        runScripts: "dangerously",
+    /* --- options to run file --- */
+    // To run the scripts in the html file
+    runScripts: "dangerously",
 
-        // Also load supported external resources
-        resources: "usable",
+    // Also load supported external resources
+    resources: "usable",
 
-        //telling JSDOM to behave like a normal visual browser
-        // So requestAnimatinFrame events fire
-        pretendToBeVisual: true
+    // telling JSDOM to behave like a normal visual browser
+    // So requestAnimatinFrame events fire
+    pretendToBeVisual: true
 
-            // waits for phaser lib to load before 
-            // making game obj & starting server
-        }).then((dom) => {
-            // assign app to port 8081
-            console.log(dom);
-            dom.window.gameLoaded = () => {
-                server.listen(8081, () => {
-                    console.log(`Listening on ${server.address().port}`);
-                });
-            }
-        }).catch(err => {
-            console.log(error.message);
-        });
-    }
+    // waits for phaser lib to load before 
+    // making game obj & starting server
+    }).then((dom) => {
+        // assign app to port 8081
+        console.log(dom);
+        dom.window.gameLoaded = () => {
+            console.log('index.js ================')
+            server.listen(8081, () => {
+                console.log(`Listening on ${server.address().port}`);
+            });
+            console.log(dom.window);
+            return dom.window;
+        }
+    }).catch(err => {
+        console.log("index.js - " + err);
+    });
+}
 
 setupAuthoritativePhaser();
